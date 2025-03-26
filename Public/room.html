@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Codex - Hotel Self-Check-In</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+ 
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+ 
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">  
+ 
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+ 
+    <!-- Libraries Stylesheet -->
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+ 
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+ 
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+</head>
+ 
+<body>
+    <div class="container-xxl bg-white p-0">
+        <!-- Spinner Start -->
+        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <!-- Spinner End -->
+
+         <!-- Header Start -->
+         <div class="container-fluid bg-dark px-0">
+            <div class="row gx-0">
+                <div class="col-lg-3 bg-dark d-none d-lg-block">
+                    <a href="index.html" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
+                        <h1 class="m-0 text-primary text-uppercase" style="color: #A4863D !important;">CODEX</h1>
+                    </a>
+                </div>
+                <div class="col-lg-9">
+                    <div class="row gx-0 bg-white d-none d-lg-flex">
+                        <div class="col-lg-7 px-5 text-start">
+                            <div class="h-100 d-inline-flex align-items-center py-2 me-4">
+                                <i class="fa fa-envelope me-2" style="color: #A4863D"></i>
+                                <p class="mb-0">
+                                    <a href="mailto:codex.selfcheck@gmail.com" style="text-decoration: none; color: inherit;">
+                                        codex.selfcheckin@gmail.com
+                                    </a>
+                                </p>
+                            </div>
+                            <div class="h-100 d-inline-flex align-items-center py-2">
+                                <i class="fa fa-phone-alt me-2" style="color: #A4863D"></i>
+                                <p class="mb-0">
+                                    <a href="tel:+66612345678" style="text-decoration: none; color: inherit;">
+                                        +66 612345678
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    <div class="col-lg-5 px-5 text-end">
+                        <div class="d-inline-flex align-items-center py-2">
+                            <a class="me-3" href="" style="color: #A4863D;"><i class="fab fa-facebook-f"></i></a>
+                            <a class="me-3" href="" style="color: #A4863D;"><i class="fab fa-twitter"></i></a>
+                            <a class="me-3" href="" style="color: #A4863D;"><i class="fab fa-linkedin-in"></i></a>
+                            <a class="me-3" href="" style="color: #A4863D;"><i class="fab fa-instagram"></i></a>
+                            <a class="" href="" style="color: #A4863D;"><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <nav class="navbar navbar-expand-lg bg-dark navbar-dark p-3 p-lg-0">
+                    <a href="index.html" class="navbar-brand d-block d-lg-none">
+                        <h1 class="m-0 text-primary text-uppercase">Codex</h1>
+                    </a>
+                    <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                        <div class="navbar-nav mr-auto py-0">
+                            <a href="index.html" class="nav-item nav-link ">Home</a>
+                            <a href="checkin.html" class="nav-item nav-link active">Check-In</a>
+                            <a href="about.html" class="nav-item nav-link">About</a>
+                            <a href="rooms&services.html" class="nav-item nav-link">Rooms & Services</a>
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle " data-bs-toggle="dropdown">Pages</a>
+                                <div class="dropdown-menu rounded-0 m-0">
+                                    <a href="team.html" class="dropdown-item">Our Team</a>
+                                    <a href="testimonial.html" class="dropdown-item">Customer Reviews</a>
+                                </div>
+                            </div>
+                            <a href="contact.html" class="nav-item nav-link">Contact</a>
+                        </div>
+                     <!-- Chat Window -->
+<div class="chat-window" id="chat-window" style="display: none; flex-direction: column;">
+    <div class="chat-header">
+        Support Chatbot 
+        <button class="close-chat" onclick="toggleChatBubble()">×</button>
+    </div>
+    <div class="chat-messages" id="chat-messages" style="overflow-y: auto; flex-grow: 1;"></div>
+    <div class="chat-input">
+        <input type="text" id="userInput" placeholder="Type your message..." />
+        <button onclick="sendMessage()">Send</button>
+    </div>
+</div>
+
+<!-- Chatbot Button -->
+<a href="javascript:void(0);" onclick="toggleChatBubble()" class="chatbot-button">
+    <div class="chatbot-content" >
+        <span class="status-indicator"></span>  
+        <div style="color: #ffffff;">
+            <i class="fa fa-robot"></i> Support Bot
+          </div>
+          
+</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <!-- Header End -->
+
+
+        <script>
+            // Load chat history when the page loads
+            window.onload = () => {
+                const chatHistory = JSON.parse(sessionStorage.getItem('chatHistory')) || [];
+                chatHistory.forEach(chat => {
+                    appendMessage(chat.message, chat.sender);
+                });
+            };
+        
+            // Function to toggle the chat window's visibility
+            function toggleChatBubble() {
+                const chatWindow = document.getElementById("chat-window");
+                if (chatWindow.style.display === "none" || chatWindow.style.display === "") {
+                    chatWindow.style.display = "flex";  // Show chat window
+                } else {
+                    chatWindow.style.display = "none";  // Hide chat window
+                }
+            }
+        
+            // Function to send message and handle API response
+            function sendMessage() {
+                const userMessage = document.getElementById("userInput").value.trim();
+                if (!userMessage) return;
+                appendMessage(userMessage, "user-message");
+        
+                document.getElementById("userInput").value = "";  // Clear input box
+                
+                // Store chat message in sessionStorage
+                storeChatHistory(userMessage, "user-message");
+        
+                // Send the message to the backend
+                fetch("/chat", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ message: userMessage })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const botReply = data.reply || "Sorry, something went wrong. Please try again.";
+                    appendMessage(botReply, "bot-message");
+        
+                    // Store bot reply in sessionStorage
+                    storeChatHistory(botReply, "bot-message");
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    const errorMessage = "Sorry, something went wrong. Please try again.";
+                    appendMessage(errorMessage, "bot-message");
+        
+                    // Store error message in sessionStorage
+                    storeChatHistory(errorMessage, "bot-message");
+                });
+            }
+        
+            // Function to append message to the chat window
+            function appendMessage(message, sender) {
+                const messageContainer = document.createElement("p");
+                const bubble = document.createElement("div");
+                bubble.classList.add("chat-bubble", sender);
+                bubble.textContent = message;
+                messageContainer.appendChild(bubble);
+                document.getElementById("chat-messages").appendChild(messageContainer);
+                document.getElementById("chat-messages").scrollTop = document.getElementById("chat-messages").scrollHeight;
+            }
+        
+            // Function to store chat history in sessionStorage
+            function storeChatHistory(message, sender) {
+                const chatHistory = JSON.parse(sessionStorage.getItem('chatHistory')) || [];
+                chatHistory.push({ message, sender });
+                sessionStorage.setItem('chatHistory', JSON.stringify(chatHistory));
+            }
+        </script>
+
+       
+       <!-- Page Header Start -->
+<div class="container-fluid page-header mb-5 p-0" style="background-image: url(img/carousel-1.jpg);">
+    <div class="container-fluid page-header-inner py-5">
+        <div class="container text-center pb-5">
+            <h1 class="display-3 text-white mb-3 animated slideInDown">Rooms</h1>
+        </div>
+    </div>
+</div>
+<!-- Page Header End -->
+
+<!-- Custom Styles -->
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+    }
+
+    .room-row {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+
+    .room {
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .available {
+        background-color: gray;
+        color: white;
+    }
+
+    .unavailable {
+        background-color: #4CC9F0;
+        color: white;
+        cursor: not-allowed;
+    }
+
+    .selected {
+        background-color: green !important;
+    }
+
+    
+    .middle {
+        width: 60px;
+        height: 60px;
+        font-weight: bold;
+        line-height: 60px;
+        background-color: #FFD700;
+        color: black;
+        border-radius: 5px;
+        text-align: center;
+    }
+
+    .walkway-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 10px 0;
+    }
+
+    .walkway-line {
+        width: 100px;
+        height: 2px;
+        background-color: black;
+    }
+
+    .walkway-text {
+        margin: 0 10px;
+        font-weight: bold;
+    }
+
+    .confirm-btn {
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        background-color: #A4863D; /* Changed button color to A4863D */
+        color: white;
+        border: none;
+        border-radius: 5px;
+    }
+
+    /* Centering the floor number selection box */
+    .floor-selection {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .floor-selection button {
+        padding: 12px 20px;
+        margin: 0 10px;
+        cursor: pointer;
+        font-size: 16px;
+        background-color: #A4863D; /* Same background color as other buttons */
+        color: white;
+        border: none;
+        border-radius: 5px;
+    }
+</style>
+</head>
+
+<body>
+<div class="container">
+    <h2>Hotel Room Selector</h2>
+    <p style="color: #4CC9F0;">Blue = Room is taken / unavailable</p>
+    <p style="color: gray;">Gray = Room is available</p>
+    <h3>Current Floor: <span id="currentFloor">1</span></h3>
+
+
+    <!-- Check-in and Check-out Date Inputs -->
+    <label for="checkInDate">Check-in Date:</label>
+    <input type="date" id="checkInDate" required>
+
+    <label for="checkOutDate">Check-out Date:</label>
+    <input type="date" id="checkOutDate" required>
+
+    <div id="roomContainer"></div>
+
+    <!-- Floor Number Selection -->
+    <div class="floor-selection">
+        <button onclick="changeFloor(1)">Floor 1</button>
+        <button onclick="changeFloor(2)">Floor 2</button>
+        <button onclick="changeFloor(3)">Floor 3</button>
+    </div>
+
+     <div>
+        <button id="submitBtn" class="confirm-btn" style="background-color: #A4863D; color: white;" onclick="confirmSelection()" disabled>Confirm Selection</button>
+
+    </div>
+</div>
+
+<script>
+    let currentFloor = 1;
+    let selectedRoom = null;
+ 
+    function generateRooms() {
+        const container = document.getElementById("roomContainer");
+        container.innerHTML = "";
+ 
+        let firstRow = document.createElement("div");
+        firstRow.classList.add("room-row");
+ 
+        for (let i = 1; i <= 4; i++) {
+            firstRow.appendChild(createRoomDiv(i));
+        }
+ 
+        let liftDiv = document.createElement("div");
+        liftDiv.classList.add("middle");
+        liftDiv.innerText = "Lift";
+        firstRow.appendChild(liftDiv);
+ 
+        for (let i = 5; i <= 8; i++) {
+            firstRow.appendChild(createRoomDiv(i));
+        }
+ 
+        container.appendChild(firstRow);
+ 
+        let walkwayContainer = document.createElement("div");
+        walkwayContainer.classList.add("walkway-container");
+ 
+        let walkwayLine1 = document.createElement("div");
+        walkwayLine1.classList.add("walkway-line");
+        let walkwayText = document.createElement("div");
+        walkwayText.classList.add("walkway-text");
+        walkwayText.innerText = "Walkway";
+        let walkwayLine2 = document.createElement("div");
+        walkwayLine2.classList.add("walkway-line");
+ 
+        walkwayContainer.appendChild(walkwayLine1);
+        walkwayContainer.appendChild(walkwayText);
+        walkwayContainer.appendChild(walkwayLine2);
+ 
+        container.appendChild(walkwayContainer);
+ 
+        let secondRow = document.createElement("div");
+        secondRow.classList.add("room-row");
+ 
+        for (let i = 9; i <= 12; i++) {
+            secondRow.appendChild(createRoomDiv(i));
+        }
+ 
+        let stairsDiv = document.createElement("div");
+        stairsDiv.classList.add("middle");
+        stairsDiv.innerText = "Stairs";
+        secondRow.appendChild(stairsDiv);
+ 
+        for (let i = 13; i <= 16; i++) {
+            secondRow.appendChild(createRoomDiv(i));
+        }
+ 
+        container.appendChild(secondRow);
+    }
+ 
+    function createRoomDiv(roomIndex) {
+        let roomNumber = currentFloor * 100 + roomIndex;
+        let roomDiv = document.createElement("div");
+        roomDiv.classList.add("room");
+        roomDiv.innerText = roomNumber;
+ 
+        let isAvailable = Math.random() > 0.3;
+        roomDiv.classList.add(isAvailable ? "available" : "unavailable");
+ 
+        if (isAvailable) {
+            roomDiv.onclick = function () {
+                selectRoom(this);
+            };
+        }
+ 
+        return roomDiv;
+    }
+ 
+    function changeFloor(floor) {
+        currentFloor = floor;
+        document.getElementById("currentFloor").innerText = floor;
+        generateRooms();
+    }
+ 
+    function selectRoom(room) {
+        if (selectedRoom) {
+            selectedRoom.classList.remove("selected");
+        }
+ 
+        room.classList.add("selected");
+        selectedRoom = room;
+ 
+        document.getElementById("submitBtn").disabled = false;
+    }
+ 
+    function confirmSelection() {
+    if (!selectedRoom) {
+        alert("Please select a room before confirming.");
+        return;
+    }
+ 
+    const roomNumber = selectedRoom.innerText;
+    const checkInDate = document.getElementById("checkInDate").value;
+    const checkOutDate = document.getElementById("checkOutDate").value;
+ 
+    if (!checkInDate || !checkOutDate) {
+        alert("Please enter both check-in and check-out dates.");
+        return;
+    }
+ 
+    const stayDuration = calculateStayDuration(checkInDate, checkOutDate);
+ 
+    if (stayDuration <= 0) {
+        alert("Check-out date must be after the check-in date.");
+        return;
+    }
+ 
+    // ✅ Store booking data in sessionStorage
+    const bookingData = {
+        roomNumber: roomNumber,
+        checkInDate: checkInDate,
+        checkOutDate: checkOutDate,
+        stayDuration: stayDuration
+    };
+ 
+    sessionStorage.setItem("bookingData", JSON.stringify(bookingData));
+ 
+    
+        alert(`You have selected room number ${roomNumber}. Your booking status is now active.`);
+ 
+        // Redirect to the extra bed page or the final booking page
+        window.location.href = `extrabed.html?room=${roomNumber}`;  // Passing the room number to the complete page
+    }
+ 
+ 
+ 
+ 
+    function calculateStayDuration(checkIn, checkOut) {
+        const checkInDate = new Date(checkIn);
+        const checkOutDate = new Date(checkOut);
+        return Math.ceil((checkOutDate - checkInDate) / (1000 * 60 * 60 * 24));
+        
+    }
+ 
+    document.addEventListener("DOMContentLoaded", generateRooms);
+ 
+    
+</script>
+       
+       <!-- Newsletter Start -->
+<div class="container newsletter mt-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="row justify-content-center">
+        <div class="col-lg-10 border rounded p-1">
+            <div class="border rounded text-center p-1">
+                <div class="bg-white rounded text-center p-5" style="background-color: #A4863D;">
+                    <h4 class="mb-4" style="color: #0c0c0c;">Subscribe Our <span class="text-uppercase" style="color: #A4863D;">Newsletter</span></h4>
+                    <div class="position-relative mx-auto" style="max-width: 400px;">
+                        <input class="form-control w-100 py-3 ps-4 pe-5" type="text" placeholder="Enter your email" style="border: 1px solid #A4863D; color: #333;">
+                        <button type="button" class="btn btn-primary py-2 px-3 position-absolute top-0 end-0 mt-2 me-2" style="background-color: #A4863D; border-color: #A4863D; color: white;">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Newsletter End -->
+       
+ 
+       <!-- Footer Start -->
+<div class="container-fluid bg-dark text-light footer wow fadeIn" data-wow-delay="0.1s">
+    <div class="container pb-5">
+        <div class="row g-5">
+             <!-- Codex Section -->
+             <div class="col-md-6 col-lg-4">
+                <div class=" rounded p-4" style="background-color: #A4863D;">
+                    <a href="index.html"><h1 class="text-uppercase"  style="color:#0c0c0c" class="mb-3">Codex</h1></a>
+                    <p class="text-white mb-0">
+                        We are <a class="text-white fw-medium" href="index.html">Codex</a>, building a professional website for your hotel business and grabbing the attention of new visitors upon your site’s launch.
+                    </p>
+                </div>
+            </div>
+            <!-- Contact Section -->
+            <div class="col-md-6 col-lg-3">
+                <h6 class="section-title text-start text-uppercase mb-4" style="color:#A4863D">Contact</h6>
+                <p class="mb-2">
+                    <i class="fa fa-map-marker-alt me-3"></i>
+                    52/347 Meaung Ek, Lak Hok, Pathum Thani Province, Thailand
+                </p>
+                <p class="mb-2">
+                    <i class="fa fa-phone-alt me-3"></i>
+                    <a href="tel:+66612345678" style="text-decoration: none; color: inherit;">
+                        +66 612345678
+                    </a>
+                </p>
+                <p class="mb-2">
+                    <i class="fa fa-envelope me-3"></i>
+                    <a href="mailto:codex.selfcheck@gmail.com" style="text-decoration: none; color: inherit;">
+                        codex.selfcheckin@gmail.com
+                    </a>
+                </p>
+                <div class="d-flex pt-2">
+                    <a class="btn btn-outline-light btn-social" href="https://www.twitter.com" target="_blank">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a class="btn btn-outline-light btn-social" href="https://www.facebook.com" target="_blank">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a class="btn btn-outline-light btn-social" href="https://www.youtube.com" target="_blank">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                    <a class="btn btn-outline-light btn-social" href="https://www.linkedin.com" target="_blank">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Links Section -->
+            <div class="col-lg-5 col-md-12">
+                <div class="row gy-5 g-4">
+                    <div class="col-md-6">
+                        <h6 class="section-title text-start text-uppercase" style="color:#A4863D" class="mb-4">Company</h6>
+                        <a class="btn btn-link" href="about.html">About Us</a>
+                        <a class="btn btn-link" href="contact.html">Contact Us</a>
+                        <a class="btn btn-link" href="about.html">Privacy Policy</a>
+                        <a class="btn btn-link" href="about.html">Terms & Condition</a>
+                        <a class="btn btn-link" href="contact.html">Support</a>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="section-title text-start text-uppercase" style="color:#A4863D" class="mb-4">Rooms & Services</h6>
+                        <a class="btn btn-link" href="rooms&services.html">Food & Restaurant</a>
+                        <a class="btn btn-link" href="rooms&services.html">Spa & Fitness</a>
+                        <a class="btn btn-link" href="rooms&services.html">Sports & Gaming</a>
+                        <a class="btn btn-link" href="rooms&services.html">Event & Party</a>
+                        <a class="btn btn-link" href="rooms&services.html">GYM & Yoga</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="copyright">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    &copy; <a class="border-bottom" href="#">Codex</a>, All Right Reserved. 
+                    Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <div class="footer-menu">
+                        <a href="">Home</a>
+                        <a href="">Cookies</a>
+                        <a href="">Help</a>
+                        <a href="">FQAs</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Footer End -->
+
+<!-- Back to Top -->
+<a href="#" class="btn btn-lg btn-primary bg-custom btn-lg-square back-to-top" style="background-color: #A4863D; border-color: #A4863D;">
+    <i class="bi bi-arrow-up" style="color: white;"></i>
+</a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/counterup/counterup.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/tempusdominus/js/moment.min.js"></script>
+    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+</body>
+
+</html>
