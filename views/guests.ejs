@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Guest Check-In Dashboard</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    h1 { color: #333; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    th, td { padding: 10px; border: 1px solid #ccc; text-align: left; }
+    th { background-color: #f0f0f0; }
+    .email-header { margin-top: 50px; font-size: 1.4em; color: #444; }
+    pre { background: #f9f9f9; padding: 10px; font-size: 0.9em; overflow-x: auto; }
+    hr { margin-top: 40px; }
+    details { background: #f0f0f0; padding: 10px; border-radius: 4px; margin-top: 10px; }
+    summary { cursor: pointer; font-weight: bold; color: #333; }
+    img.passport-photo { max-width: 150px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <h1>Codex Hotel — Guest Check-In Dashboard</h1>
+  
+  <a href="/export-checkins" class="btn" style="padding: 8px 12px; background: #C2B280; color: white; text-decoration: none; border-radius: 4px;">
+    ⬇️ Export to CSV
+  </a>  
+
+  <form method="GET" action="/guests" style="margin: 20px 0;">
+    <input type="text" name="email" id="emailSearch" placeholder="Search by email..." 
+           value="<%= typeof searchQuery !== 'undefined' ? searchQuery : '' %>" 
+           style="padding: 6px 10px; width: 250px;">
+    <button type="submit" style="padding: 6px 12px;">🔍 Search</button>
+
+    <% if (searchQuery) { %>
+      <a href="/guests" style="padding: 6px 12px; text-decoration: none; background: #ccc; color: #000; border-radius: 4px; margin-left: 10px;">❌ Clear</a>
+    <% } %>
+  </form>
+
+  <% if (Object.keys(groupedGuests).length === 0) { %>
+    <p>No check-in submissions found.</p>
+  <% } %>
+
+  <% for (const email in groupedGuests) { 
+       const checkinCount = groupedGuests[email].length;
+  %>
+    <div class="email-header">
+      📧 <strong><%= email %></strong>
+      <span style="font-size: 0.9em; color: #666;">
+        — <%= checkinCount %> check-in<%= checkinCount > 1 ? 's' : '' %>
+      </span>
+      <% if (checkinCount > 1) { %>
+        <span style="background: #ffc107; color: #000; padding: 3px 6px; border-radius: 4px; margin-left: 10px; font-size: 0.8em;">
+          🌀 Frequent Guest
+        </span>
+      <% } %>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Booking No.</th>
+          <th>Full Name</th>
+          <th>Room</th>
+          <th>Check-In</th>
+          <th>Check-Out</th>
+          <th>OTP</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% groupedGuests[email].forEach((guest, index) => { %>
+          <tr>
+            <td><%= index + 1 %></td>
+            <td><%= guest.bookingNumber || "—" %></td>
+            <td><%= guest.fullName || "—" %></td>
+            <td><%= guest.roomNumber || "—" %></td>
+            <td><%= guest.checkInDate || "—" %></td>
+            <td><%= guest.checkOutDate || "—" %></td>
+            <td><%= guest.otp || "—" %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+
+    <% groupedGuests[email].forEach((guest, index) => { %>
+      <% if (guest.passportInfo || guest.extraBedInfo) { %>
+        <details>
+          <summary>More Info for Check-In #<%= index + 1 %></summary>
+          <% if (guest.passportInfo) { %>
+            <h4>Passport Info:</h4>
+            <pre><%= JSON.stringify(guest.passportInfo, null, 2) %></pre>
+            <% if (guest.passportInfo.passportPhoto) { %>
+              <h5>Passport Photo:</h5>
+              <img class="passport-photo" src="<%= '/uploads/' + guest.passportInfo.passportPhoto %>" alt="Passport Photo">
+            <% } %>
+          <% } %>
+          <% if (guest.extraBedInfo) { %>
+            <h4>Extra Bed Info:</h4>
+            <pre><%= JSON.stringify(guest.extraBedInfo, null, 2) %></pre>
+          <% } %>
+        </details>
+      <% } %>
+    <% }) %>
+
+    <hr>
+  <% } %>
+
+  <script>
+    document.getElementById("emailSearch").addEventListener("input", function () {
+      const query = this.value.toLowerCase();
+      const headers = document.querySelectorAll(".email-header");
+
+      headers.forEach(header => {
+        const emailText = header.innerText.toLowerCase();
+        const section = header.nextElementSibling; // table
+        const extra = header.nextElementSibling?.nextElementSibling; // optional <details>
+        const hr = header.nextElementSibling?.nextElementSibling?.nextElementSibling; // <hr>
+
+        const match = emailText.includes(query);
+
+        header.style.display = match ? "block" : "none";
+        if (section) section.style.display = match ? "table" : "none";
+        if (extra) extra.style.display = match ? "block" : "none";
+        if (hr) hr.style.display = match ? "block" : "none";
+      });
+    });
+  </script>
+</body>
+</html>
